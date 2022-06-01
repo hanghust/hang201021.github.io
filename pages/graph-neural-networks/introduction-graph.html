@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!--
+Template Name: Nocobot
+Author: <a href="https://www.os-templates.com/">OS Templates</a>
+Author URI: https://www.os-templates.com/
+Copyright: OS-Templates.com
+Licence: Free to use under our free template licence terms
+Licence URI: https://www.os-templates.com/template-terms
+-->
+<html lang="">
+<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+<head>
+<title>Introduction Graph Neural Networks</title>
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+</head>
+<body id="top">
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div data-include="header.html"></div>
+<!-- End Top Background Image Wrapper -->
+
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <section class="hoc container clear"> 
+    <!-- ################################################################################################ -->
+    <div class="sectiontitle">
+      <p class="heading underline font-x2">Introduction Graph Neural Networks</p>
+    </div>
+    <div class="content">
+      <h2 id="overview">Overview</h2>
+<p>Hôm nay mình lại ngồi lướt lướt mấy cái dữ liệu sẵn có trên công ty để xem có gì hay ho không thì mình lại tìm được một chút kiến thức mới mẻ nên muốn note lại biết đâu sau này cần 😉.</p>
+<p>Thông thường với mình khi đem dữ liệu sử dụng cho một project thì mình thường chỉ quan tâm đến các property, các object độc lập mà bỏ qua sự tương tác giữa các object ⇒ Khi đó câu hỏi đặt ra nếu dưới góc nhìn các object có sự tương tác với nhau thì mình có thể giải quyết được thêm những vấn đề nào?</p>
+<p>Và rồi mình bắt đầu search google và tìm ra một tá những ứng dụng mà cần quan tâm đến sự tương tác giữa các objects. Ví dụ về facebook: khi đó mỗi user sẽ có tương tác với nhau thông qua relasionship: friend, family, ….Khi đó cơ chế suggestion friend của fb chính là ứng dụng mining relationship để đưa ra suggest cho user. Và tất cả các được biển diễn dưới dạng graphs hoặc networks. Dưới đây là tổng hợp một số ví dụ về graph, network trong thực tế:</p>
+<p><strong>Many types of Data are Graphs:</strong></p>
+<p><img src="graph-images/Untitled1.png", class="cangiua"></p>
+<p><img src="graph-images/Untitled2.png", class="cangiua"></p>
+<p><img src="graph-images/Untitled3.png", class="cangiua"></p>
+<p>Source: <a href="https://web.stanford.edu/class/cs224w/slides/01-intro.pdf">https://web.stanford.edu/class/cs224w/slides/01-intro.pdf</a></p>
+<p><strong>Types of Networks and Graphs:</strong></p>
+<ul>
+<li>Networks (Natural Graphs)<ul>
+<li>Social networks:<ul>
+<li>Society là một mạng lưới thu thập từ 7+ tỷ người dùng cá nhân</li>
+</ul>
+</li>
+<li>Communication and transaction:<ul>
+<li>Electronic devices, phone calls, financial trabsactions</li>
+</ul>
+</li>
+<li>Biomedicine:<ul>
+<li>Tương tác giữa genes/proteins</li>
+</ul>
+</li>
+<li>Brain connections:<ul>
+<li>Sự liên kết giữa hàng tỷ neurons</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Graphs (as a representation)<ul>
+<li>Information/knowledge được tổ chức và được kết nối</li>
+<li>Software có thể được đại diện như một graph</li>
+<li>Similarity networks: kết nối tương đồng giữa các data point</li>
+<li>Relational structures: Molecules, scene graphs, 3D shapes, particle-based physical simulation</li>
+</ul>
+</li>
+</ul>
+<p>Chúng ta thấy có hai thuật ngữ được nhắc đến là Networks và graphs vậy sự khác nhau giữa hai thuật ngữ này là gì? Chúng ta có thường nhầm lẫn <strong>networks</strong> và <strong>graphs?</strong> 🤔 (Cái này các bạn tự tìm hiểu nhé 😂).</p>
+<p>Để giải quyết những bài toán này, người ta quan tâm đến <strong>Graph theory</strong> và cụ thể là ứng dụng machine learning cho graph (<strong>Graph Neural Networks</strong>) cho thấy sự phát triển mạnh mẽ của <strong>GNN</strong> mấy năm gần đây:</p>
+<p><img src="graph-images/Untitled4.png", class="cangiua"></p>
+<p>Chính vì sự phát triển mạnh mẽ của <strong>GNN</strong> trong thời gian gần đây và những ững dụng mạnh mẽ của nó trong thực tiễn mình quyết định bắt tay tìm hiểu nó (tìm hiểu bề nổi thôi nhé, vì để hiểu sâu thì graph theory là một cái gì đấy rất vi diệu mình khó có thể hiểu sâu sắc được 😎.) </p>
+<p><strong>Get Gooooo</strong> 😆😆😆<strong>!</strong></p>
+<p>Đối với các project về Graphs chúng ta sẽ chia nó làm 4 tasks chính:</p>
+<ul>
+<li>Node-level: Các task xoay quanh các node: phân loại, tái cấu trúc 3D, …</li>
+<li>Edge-level: Các task liên quan đến kết nối tương tác giữa các node, các bài toán recommender, …</li>
+<li>Community (subgraph) level: Các task detect community, cluster, ….</li>
+<li>graph-level prediction, graph generation</li>
+</ul>
+<p><img src="graph-images/Untitled5.png", class="cangiua"></p>
+<p>Classic Graph ML Tasks:</p>
+<ul>
+<li><p>Node-level ML Task</p>
+<ul>
+<li>Node classification: dự đoán thuộc tính của một node.<ul>
+<li>Example1: dự đoán một node trong network là user hay item.</li>
+</ul>
+</li>
+<li><p>Example2: Protein Folding: Computationally predict a protein’s 3D structure based solely on its amino acid sequence. Dựa trên chuỗi protein 1D hoặc 2D để predict cấu trúc 3D tự nhiên của protein.</p>
+  <p><img src="graph-images/Untitled6.png", class="cangiua"></p>
+<ul>
+<li><p>Key idea: “Spatial graph”</p>
+<ul>
+<li>Nodes: amino acids in a protein sequence</li>
+<li>Edges: Proximity between amino acids (residues)</li>
+</ul>
+<p><img src="graph-images/Untitled7.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Edge-level ML Task</p>
+<ul>
+<li>Link prediction: dự đoán sự liên kết/tương tác của hai node bất kỳ trong network (link/edge mising)<ul>
+<li>Example: dự đoán kết nối giữa người mua hàng và danh mục hàng hóa.</li>
+</ul>
+</li>
+<li><p>Recommender Systems:</p>
+<ul>
+<li>Người dùng tương tác với sản phẩm: xem phim, mua hàng, nghe nhạc, …</li>
+<li>Nodes: users, items</li>
+<li>Edges: user-item interactions</li>
+<li><p>Mục đích gợi ý những sản phẩm mà người dùng có thể thích (có thể nâng cao hơn là gợi ý sản phẩm mà người dùng mong muốn vào thời gian thích hợp)</p>
+<p><img src="graph-images/Untitled8.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+<li><p>Drug side effects: Nhiều bệnh nhân sẽ dùng nhiều loại thuốc điều trị cùng một lúc (46% người trong khoảng từ 70-79 tuổi cần nhiều hơn 5 loại thuốc, khá nhiều bệnh nhân có bệnh về tim mạnh, thần kinh,… cần nhiều hơn 20 loại thuốc) Do đó người ta cần xác định sự tương tác giữa các loại thuốc có ảnh hưởng lên cơ thể như thế nào? Có những tương tác nào gây nguy hiểm cho cơ thể hay không?</p>
+<p>  👉 Task đối với bài toán này là đưa ra một cặp thuốc và dự đoán ảnh hưởng bất lợi lên cơ thể người dùng.</p>
+<p><img src="graph-images/Untitled9.png", class="cangiua"></p>
+</li>
+<li><p>Biomedical Graph Link Prediction:</p>
+<ul>
+<li>Nodes: Drugs &amp; Proteins</li>
+<li><p>Edges: Drug-drug, drug-protein, protein-protein</p>
+<p><img src="graph-images/Untitled10.png", class="cangiua"></p>
+<p>  🧐 Câu hỏi đặt ra sẽ như thế nào khi hai loại thuốc được đặt cạnh nhau? liểu nó có phá vớ cấu trúc liên kết của các bắp cơ?</p>
+<p><img src="graph-images/Untitled11.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Subgraph-level ML Task</p>
+<ul>
+<li><p>Trafic Prediction:</p>
+<ul>
+<li>Nodes: Road segments</li>
+<li>Edges: Connectivity between road segments</li>
+<li>Prediction: Time of arrival (ETA)</li>
+</ul>
+<p><img src="graph-images/Untitled12.png", class="cangiua"></p>
+<p><img src="graph-images/Untitled13.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+<li><p>Graph-level ML Tasks</p>
+<ul>
+<li>Graph classification: : phân loại hợp chất hoá học (thuốc - thành phần cấu tạo)</li>
+<li>Clustering: xác định các node thuộc cùng một cộng đồng:<ul>
+<li>Ví dụ: Social circle detection</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Other tasks:</p>
+<ul>
+<li><p>Graph generation: Drug dívovery</p>
+<ul>
+<li>Nodes: Atoms</li>
+<li><p>Edges: Chemical bonds</p>
+<p><img src="graph-images/Untitled14.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+<li><p>Graph evolution: Physical simulation</p>
+<ul>
+<li>Nodes: Particles</li>
+<li><p>Edges: Interaction between particles</p>
+  <p><img src="graph-images/Untitled15.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="components-of-a-network">Components of a Network</h2>
+<p><img src="graph-images/Untitled16.png", class="cangiua"></p>
+<ul>
+<li>Object: Nodes(N), Vertices(V)</li>
+<li>Interactions: Links, edges (E)</li>
+<li>System: network, graph G(N,E)</li>
+</ul>
+<p><img src="graph-images/Untitled17.png", class="cangiua"></p>
+<h2 id="graph-theory-basic">Graph theory basic</h2>
+<p>Để có thể hiểu sơ cua về networks và có thể giải quyết các task ML for graph thì ít nhất chúng ta cũng nên biết một số định nghĩa cơ bản trong <strong>graph theory</strong> phải hông?</p>
+<p>Đầu tiên chúng ta cần phải nêu ra định nghĩa một graph: đồ thị G gồm một tập các object (được gọi là vertex - tập V) và giữa các object có tương tác với nhau (được gọi là edge - tập E) trong đó edge sẽ được assign một trọng số đại diện cho mức độ tương tác giữa hai vertex. Ký hiệu toán học: \(G = (V, E)\).</p>
+<p>Có hai loại graph đó là directed graphs và undirected graphs:</p>
+<p><img src="graph-images/Untitled18.png", class="cangiua"></p>
+<p>Directed graphs là graph có edge liên kết giữa các vertex có quan tâm đến điểm đầu và cuối: ví dụ: phone calls, transactions, following on twitter or facebook</p>
+<p>Trong khi đó: Undirected graphs là graph có edge liên kết giữa các vertex không quan tâm đến điểm đầu và cuối: ví dụ friendship on facebook.</p>
+<p>Ngoài ra chúng ta còn có Heterogeneous graphs đó là graph được định nghĩa như sau: \(G = (V, E, R, T)\) Trong đó:</p>
+<ul>
+<li>\(v_i \in V:\) Là tập vertex của đồ thị đại diện cho các object</li>
+<li>\(r \in R:\) loại liên kết</li>
+<li>\(T(v_i):\) loại của đỉnh \(v_i\)</li>
+<li>\((v_i, r, v_j) \in E:\) cạnh kết nối giữa \(v_i , v_j\) với loại liên kết \(r\).</li>
+</ul>
+<p>Một số ví dụ về Heterogeneous graphs:</p>
+<p><img src="graph-images/Untitled19.png", class="cangiua"></p>
+<p><strong>Node degree:</strong></p>
+<p>Tương ứng với directed graphs hay undirected graphs chúng ta sẽ có các xác định bậc của mỗi node khác nhau:</p>
+<p>Undirected graphs: Bậc của đỉnh là số cạnh kết nối của đỉnh đó (số đỉnh có tương tác với đỉnh đó). Ví dụ: Bậc của đỉnh A: \(k_A = 4\) </p>
+<p>Bậc trung bình của đỉnh thuộc graph \(Avg.degree: \bar{k} = <k> = \frac{1}{N}\sum_{i=1}^{N}k_i = \frac{2E}{N}\)</p>
+  <p><img src="graph-images/Untitled20.png", class="cangiua"></p>
+<p>Directed graphs: Chúng ta sẽ định nghĩa bậc vào của đỉnh và bậc ra của đỉnh vì nó phụ thuộc vào cạnh có hướng</p>
+<p><img src="graph-images/Untitled21.png", class="cangiua"></p>
+<p>\(\text{Bậc vào của đỉnh C: }k_C^{in} = 2 \text{ ; Bậc ra của đỉnh C: } k_C^{out}=1   =&gt; \text{Bậc của C: } k_C=3\)</p>
+<p>Bậc trung bình của đỉnh thuộc graph: \(\text{Avg.degree: }\bar{k^{in}} = \bar{k^{out}} = \frac{E}{N}\)</p>
+<p><strong>Bipartite Graph:</strong> là graph mà các node có thể chia làm hai tập riêng biệt <strong>U</strong> và <strong>V</strong>  đặc biệt các cạnh kết nối là liên kết từ một node thuộc tập <strong>U</strong> đến một node thuộc tập <strong>V</strong> ( <strong>U</strong> và <strong>V</strong> là hai tập độc lập).</p>
+<p><img src="graph-images/Untitled22.png", class="cangiua"></p>
+<p>Example: </p>
+<ul>
+<li>Authors-to-Papers (they authored)</li>
+<li>Actors-to-Movies (they appeared in)</li>
+<li>Users-to-Movies (they rated)</li>
+<li>Recipes-to-Ingredients (they contain)</li>
+</ul>
+<p>Đối với các Bipartite graph chúng ta có thể chuyển đổi thành <strong>“Folded/Projected Bipartite Graphs”</strong> như sau:</p>
+<p><img src="graph-images/Untitled23.png", class="cangiua"></p>
+<p><strong>Representing Graphs: Adjacency Matrix:</strong></p>
+<p>Adjacency Matrix là ma trận thể hiện mối quan hệ và mức độ tương tác giữa các đỉnh trong graph. Ta sẽ chia làm hai loại Adj matrix: </p>
+<ul>
+<li><p>Thứ nhất là các graph không có trọng số (binary matrix) là các đồ thị chỉ quan tâm giữa các đỉnh có tương tác với nhau hay không:</p>
+  <p><img src="graph-images/Untitled24.png", class="cangiua"></p>
+</li>
+<li><p>Thứ hai là các graph có trọng số: tức là giữa các đỉnh có tương tác thì trọng số cạnh thể hiện mức độ tương tác (khoảng cách, số lượt like, ….)</p>
+  <p><img src="graph-images/Untitled25.png", class="cangiua"></p>
+</li>
+</ul>
+<p><strong>Representing Graphs: Edge list:</strong> Đại diện của graph là một list các cạnh liên kết:</p>
+<p>Example: </p>
+<p><img src="graph-images/Untitled26.png", class="cangiua"></p>
+<p><strong>Representing Graphs: adjacency list:</strong></p>
+<ul>
+<li>Thích hợp dùng cho các network lớn và thưa thớt</li>
+<li><p>Cho Phép chúng ta lưu trữ theo từng node và các hàng xóm của nó (các node có cạnh nối với nó)</p>
+  <p><img src="graph-images/Untitled27.png", class="cangiua"></p>
+</li>
+</ul>
+<p><img src="graph-images/Untitled28.png", class="cangiua"></p>
+<p>Mốt số Networks thực tế retrieve</p>
+<p><img src="graph-images/Untitled29.png", class="cangiua"></p>
+<p><strong>Node and Edges Attributes</strong></p>
+<ul>
+<li>Weight: (eg: frequency of communication)</li>
+<li>Ranking (best friend, second best friend,…)</li>
+<li>Type (friend, relative, co-worker…)</li>
+<li>sign: Friend-Foe, Trust-Distrust</li>
+<li>Properties depending on the structure of the rest of the graph: Number of common friends</li>
+</ul>
+<p><strong>Connectivity of Undirected Graphs (Đồ thị liên thông)</strong></p>
+<ul>
+<li>Connected (undirected) Graph là đồ thị mà giữa hai đỉnh bất kỳ luôn tồn tại đường đi giữa chúng (Đồ thị không liên thông là đồ thì có nhiều hơn một thành phần liên thông)</li>
+</ul>
+<p><img src="graph-images/Untitled30.png", class="cangiua"></p>
+<ul>
+<li><p>Adjacency matrix của một network có nhiều hơn một thành phần liên thông thì sẽ tạo thành các khối  nằm trên đường chéo chính.</p>
+  <p><img src="graph-images/Untitled31.png", class="cangiua"></p>
+</li>
+<li><p>Đối với đồ thị có hướng chúng ta phân ra làm đồ thị liên thông mạnh (Strong connected directed graph) và đồ thị liên thông yếu (Weakly connected directed graph).</p>
+<ul>
+<li>Strongly connected directed graph: là đồ thị mà giữa hai đỉnh luôn tồn tại đường đi giữa chúng (đường đi có hướng)</li>
+<li><p>Weakly connected directed graph: là đồ thị mà giữa hai đỉnh của đồ thị luôn tồn tại đường đi giữa hai đỉnh (không xét đến hướng - coi cạnh là vô hướng)</p>
+<p><img src="graph-images/Untitled32.png", class="cangiua"></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>Different types of tasks:<ul>
+<li>Node Level</li>
+<li>Edge level</li>
+<li>Graph level</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+<h1>References</h1>
+<div class="scrollable">
+  <p><a href="https://web.stanford.edu/class/cs224w/slides/01-intro.pdf">https://web.stanford.edu/class/cs224w/slides/01-intro.pdf</a></p>
+</div>
+
+<hr>
+<div class="clearfix">
+
+    
+  <a class="btn btn-primary float-left" href="../birch-algorithm.html" data-toggle="tooltip" data-placement="top" title="" data-original-title="Birch Algorithm">← Previous<span class="d-none d-md-inline">
+      Post</span></a>
+  
+  
+  <a class="btn btn-primary float-right" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="#">Next<span class="d-none d-md-inline">
+      Post</span> →</a>
+  
+
+</div>
+<!-- ################################################################################################ -->
+</div>
+<!-- ################################################################################################ -->
+</section>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper coloured">
+  <section id="ctdetails" class="hoc clear"> 
+    <!-- ################################################################################################ -->
+    <ul class="nospace clear">
+      <li class="one_quarter first">
+        <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Give us a Call:</strong> +84 394 88XX XX</span></div>
+      </li>
+      <li class="one_quarter">
+        <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Send me a mail:</strong> hanghust98@mail.com</span></div>
+      </li>
+      <li class="one_quarter">
+        <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong> Monday - Saturday:</strong> 08.00am - 18.00pm</span></div>
+      </li>
+      <li class="one_quarter">
+        <div class="block clear"><a href="#"><i class="fas fa-map-marker-alt"></i></a> <span><strong>Come visit us:</strong> Directions to <a href="https://hanghust.github.io">our location</a></span></div>
+      </li>
+    </ul>
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+<!-- ################################################################################################ -->
+
+<!-- ################################################################################################ -->
+<a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+<!-- JAVASCRIPTS -->
+<script src="layout/scripts/jquery.min.js"></script>
+<script src="layout/scripts/jquery.backtotop.js"></script>
+<script src="layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+</html>
